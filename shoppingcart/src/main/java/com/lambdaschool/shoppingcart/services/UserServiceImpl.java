@@ -3,6 +3,7 @@ package com.lambdaschool.shoppingcart.services;
 import com.lambdaschool.shoppingcart.exceptions.ResourceFoundException;
 import com.lambdaschool.shoppingcart.exceptions.ResourceNotFoundException;
 import com.lambdaschool.shoppingcart.models.User;
+import com.lambdaschool.shoppingcart.models.UserRoles;
 import com.lambdaschool.shoppingcart.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -75,8 +76,14 @@ public class UserServiceImpl
         User newUser = new User();
 
         newUser.setUsername(user.getUsername());
-        newUser.setPasswordNoEncrypt(user.getPassword());
+//        newUser.setPasswordNoEncrypt(user.getPassword());
         newUser.setComments(user.getComments());
+
+//        newUser.getRoles().clear();
+//        for (UserRoles ur : user.getRoles())
+//        {
+//            Role addRole
+//        }
 
         if (user.getCarts()
                 .size() > 0)

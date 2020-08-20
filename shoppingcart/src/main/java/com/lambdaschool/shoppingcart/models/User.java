@@ -59,8 +59,8 @@ public class User
                 String password,
                 String comments)
     {
-        setUsername(username);
-        setPassword(password);
+        this.username = username;
+        this.password = password;
         this.comments = comments;
     }
 

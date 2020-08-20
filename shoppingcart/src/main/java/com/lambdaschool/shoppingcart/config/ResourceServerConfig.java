@@ -27,21 +27,61 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter
         http.logout().disable();
 
         http.authorizeRequests()
-                .antMatchers("/",
-                        "/h2-console/**",
-                        "/swagger-resources/**",
-                        "/swagger-resource/**",
-                        "/swagger-ui.html",
-                        "/v2/api-docs",
-                        "/webjars/**",
-                        "/createnewuser")
+
+                /*
+
+                Any visitors, even those without a role, can access the following:
+
+                 */
+
+                .antMatchers(
+                        "/",
+                                   "/h2-console/**",
+                                   "/swagger-resources/**",
+                                   "/swagger-resource/**",
+                                   "/swagger-ui.html",
+                                   "/v2/api-docs",
+                                   "/webjars/**",
+                                   "/createnewuser")
+
                 .permitAll()
+
+                /*
+
+                Any authenticated users with a Role can access the /logout path:
+
+                 */
+
                 .antMatchers("/logout")
                 .authenticated()
-                .antMatchers("/users/**")
+
+                /*
+
+                ADMIN (Role) can access every path:
+
+                 */
+
+                .antMatchers(
+                        "/users/**",
+                                   "/roles/**",
+                                   "/carts/**" ,
+                                   "/products/**")
+
                 .hasAnyRole("ADMIN")
-                .antMatchers("/roles/**")
-                .hasAnyRole("ADMIN")
+
+                /*
+
+                USER (Role) can only access the following:
+
+                 */
+
+                .antMatchers(
+                        "/users/myinfo",
+                                   "/carts/user",
+                                   "/carts/update/cart/1/product/1",
+                                   "/carts/delete/cart/1/product/1")
+
+                .hasAnyRole("USER")
                 .and()
                 .exceptionHandling()
                 .accessDeniedHandler(new OAuth2AccessDeniedHandler());

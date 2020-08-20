@@ -30,7 +30,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter
 
                 /*
 
-                Any visitors, even those without a role, can access the following:
+                Anybody, even those without a role, can access the following:
 
                  */
 
@@ -52,7 +52,8 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter
 
                  */
 
-                .antMatchers("/logout")
+                .antMatchers("/logout",
+                                        "/users/myinfo")
                 .authenticated()
 
                 /*
@@ -61,13 +62,29 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter
 
                  */
 
-                .antMatchers(
-                        "/users/**",
-                                   "/roles/**",
-                                   "/carts/**" ,
-                                   "/products/**")
+//                .antMatchers(
+//                        "/users/**",
+//                                   "/roles/**",
+//                                   "/carts/**",
+//                                   "/carts/cart/**",
+//                                   "/carts/create/product/**",
+//                                   "/carts/update/cart/**",
+//                                   "/carts/delete/cart/**",
+//                                   "/products/**")
+                .antMatchers("/users/users",
+                                        "/users/user/**",
+                                        "/carts/cart/**",
+                                        "/products/**")
 
                 .hasAnyRole("ADMIN")
+
+
+
+                .antMatchers("/carts/user/**",
+                                        "/carts/create/**",
+                                        "/carts/update/**",
+                                        "/carts/delete/**")
+                .authenticated()
 
                 /*
 
@@ -76,10 +93,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter
                  */
 
                 .antMatchers(
-                        "/users/myinfo",
-                                   "/carts/user",
-                                   "/carts/update/cart/1/product/1",
-                                   "/carts/delete/cart/1/product/1")
+                        "/carts/create/product/**")
 
                 .hasAnyRole("USER")
                 .and()

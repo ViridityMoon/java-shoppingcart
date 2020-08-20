@@ -76,7 +76,7 @@ public class UserServiceImpl
         User newUser = new User();
 
         newUser.setUsername(user.getUsername());
-//        newUser.setPasswordNoEncrypt(user.getPassword());
+        newUser.setPasswordNoEncrypt(user.getPassword());
         newUser.setComments(user.getComments());
 
 //        newUser.getRoles().clear();
